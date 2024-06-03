@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Liste des travailleurs</u></h3>
+        <table class="table table-stripped">
+            <tr>
+                <th>Nom</th>
+                <th>Date embauche</th>
+                <th>Taux horaire actuel</th>
+                <th>Profil</th>
+            </tr>
+            <tr th:each="ouvrier : ${ouvriers}" class="align-middle">
+                <td th:text="${ouvrier.getDescription()}">
+                </td>
+                <td th:text="${ouvrier.getDate_embauche()}"></td>
+                <td th:text="${ouvrier.getTaux_horaire_actuel()}"></td>
+                <td th:text="${ouvrier.getProfil().getDescription}">
+                </td>
+            </tr>
+        </table>
+        <p th:text="${ouvriers.size()}"></p>
+    </div>
+</body>
+</html>

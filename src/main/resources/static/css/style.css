@@ -1,0 +1,23 @@
+.divForm {
+    margin-left: 100px;
+    margin-top: 80px;
+    margin-right: 100px;
+}
+
+button {
+    margin: 15px;
+}
+
+label { 
+    margin: 7px;
+    padding: 8px;
+}
+
+input,select {
+    margin-bottom: 10px;
+    padding: 2px;
+}
+
+td {
+    font-size: 15px;
+}

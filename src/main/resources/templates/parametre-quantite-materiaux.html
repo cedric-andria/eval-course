@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                    <div class="card z-index-0 fadeIn3 fadeInBottom">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Insertion parametres quantité matériaux</h4>
+                            <div class="row mt-3">
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <div class="card-body">
+                            <form role="form" class="text-start" action="submitparamformule" method="POST">
+                                <div class="dropdown">
+                                    <input type="hidden" name="idCategorie" id="idcategorie" required>
+                                    <input type="hidden" name="idStyle" id="idstyle" required>
+                                    <input type="hidden" name="idVolume" id="idvolume" required>
+
+                                    <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-categorie" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Categorie
+                                    </button>
+                                    <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-categorie">
+                                      <li th:each="categorie : ${categories}" ><a class="dropdown-item" th:href="@{${'#' + categorie.getId()}}" th:text="${categorie.getNom()}"></a></li>
+                                    </ul>
+                                    <script>
+                                        const dropdownLinks_categorie = document.querySelectorAll('#dropdown-menu-categorie a');
+                                        console.log(dropdownLinks_categorie);
+                                        // Attach the click event handler to each <a> element
+                                        dropdownLinks_categorie.forEach(function(link) {
+                                            console.log('misy element');
+                                            link.addEventListener('click', function(event) {
+                                                event.preventDefault(); // Prevent the default behavior of the link
+                                                document.getElementById('dropdownMenuButton-categorie').textContent = link.textContent;
+                                                document.getElementById('idcategorie').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                                 // Change the text content of the button
+                                            });
+                                        });
+                                    </script>
+
+                                    <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-style" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Style
+                                    </button>
+                                    <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-style">
+                                        <li th:each="style : ${styles}" ><a class="dropdown-item" th:href="@{${'#' + style.getId()}}" th:text="${style.getNom()}"></a></li>
+                                    </ul>
+                                    <script>
+                                        const dropdownLinks_style = document.querySelectorAll('#dropdown-menu-style a');
+                                        console.log(dropdownLinks_style);
+                                        // Attach the click event handler to each <a> element
+                                        dropdownLinks_style.forEach(function(link) {
+                                            console.log('misy element');
+                                            link.addEventListener('click', function(event) {
+                                                event.preventDefault(); // Prevent the default behavior of the link
+                                                document.getElementById('dropdownMenuButton-style').textContent = link.textContent;
+                                                document.getElementById('idstyle').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                                // Change the text content of the button
+                                            });
+                                        });
+                                    </script>
+
+                                    <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-volume" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Volume
+                                    </button>
+                                    <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-volume">
+                                        <li th:each="volume : ${volumes}" ><a class="dropdown-item" th:href="@{${'#' + volume.getId()}}" th:text="${volume.getNom()}"></a></li>
+                                    </ul>
+                                    <script>
+                                        const dropdownLinks_volume = document.querySelectorAll('#dropdown-menu-volume a');
+                                        console.log(dropdownLinks_volume);
+                                        // Attach the click event handler to each <a> element
+                                        dropdownLinks_volume.forEach(function(link) {
+                                            console.log('misy element');
+                                            link.addEventListener('click', function(event) {
+                                                event.preventDefault(); // Prevent the default behavior of the link
+                                                document.getElementById('dropdownMenuButton-volume').textContent = link.textContent;
+                                                document.getElementById('idvolume').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                                // Change the text content of the button
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <!-- <div th:utext="${menu_list}">
+        
+    </div>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+            <h2>Insertion categorie</h2>
+
+                <form action="/insertnewcategorie" method="post">
+                    <label for="nom" style="font-size: 16px;">Nom: </label>
+                    <input type="text" name="nom"
+                     style="font-size: 16px; margin-bottom: 23px;">
+                     
+                    <br>
+            
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div> -->
+    
+    <div th:utext="${foot_imports}"></div>
+
+    
+    
+</body>
+</html>

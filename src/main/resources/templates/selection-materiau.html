@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="container">
+        <div class="newcontainer">
+            <h2>Selection matériau</h2>
+            <form action="/selectmateriau_to_list_meuble" method="post" id="form">
+                <select name="idMateriau" id="materiaux" style="font-size: 16px;
+                font-family: Arial;">
+                    <option th:each="materiau : ${materiaux}" th:text="${materiau.getNom()}" th:value="${materiau.getId()}"></option>
+                </select> 
+                <button type="submit" class="btn btn-primary"
+                 style="font-size: 16px;">Valider</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

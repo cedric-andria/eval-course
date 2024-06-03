@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Insertion ouvrier</u></h3> <br>
+        <form action="/insertnewouvrier" method="post">
+            <label for="description">Description:</label>
+             <input type="text" name="description"> <br>
+            <label for="taux">Taux horaire:</label>
+             <input type="number" name="taux_horaire"><i> Ariary</i> <br>
+            <input type="date" name="date_embauche">
+            <label for="profil">Profil:</label>
+            <select name="idProfil">
+                <option th:each="profil : ${profils}" th:text="${profil.getDescription()}" th:value="${profil.getId()}"></option>
+            </select> <br>
+
+            <button type="submit" class="myButton btn btn-primary"
+            >Insérer</button>
+        </form>
+    </div>
+</body>
+</html>

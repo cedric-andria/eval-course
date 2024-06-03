@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Stock insuffisant</u></h3>
+        <table class="table-striped table">
+            <tr>
+                <th>Matériaux</th>
+                <th>Quantité manquant</th>
+            </tr>
+            <tr th:each="materiau_quantite : ${materiau_quantites}">
+                <td th:text="${materiau_quantite.getMateriau().getNom()}">
+                </td>
+                <td th:text="${materiau_quantite.getQuantite()}">
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

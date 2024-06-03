@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                      <h6 class="text-white text-capitalize ps-7">Quantite materiau selon meuble</h6>
+                    </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                      <table class="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Categorie</th>
+                            <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">Style</th>
+                            <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Volume</th>
+                            <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Materiau</th>
+                            <th class="text-secondary opacity-7">Quantité</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each=" liste_meuble : ${liste_meubles}">
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div class="avatar-sm me-3 border-radius-lg">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm" th:text="${liste_meuble.getCategorie().getNom()}"></h6>
+                                    </div>
+                              </div>
+                            </td>
+                            <td>
+                                <p class="text-s font-weight-bold mb-0" th:text="${liste_meuble.getStyle().getNom()}"></p>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <span class="badge badge-sm bg-gradient-success" th:text="${liste_meuble.getVolume().getNom()}"></span>
+                            </td>
+                            <td class="align-middle text-center">
+                                <span class="text-secondary text-sm font-weight-bold" th:text="${liste_meuble.getMateriau().getNom()}"></span>
+                            </td>
+                            <td class="align-middle">
+                                <a href="#" class="text-secondary font-weight-bold text-sm" data-toggle="tooltip" data-original-title="Edit user" th:text="${liste_meuble.getQuantite()}">
+                                </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <!-- <div th:utext="${menu_list}">
+        
+    </div>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+            <h2>Insertion categorie</h2>
+
+                <form action="/insertnewcategorie" method="post">
+                    <label for="nom" style="font-size: 16px;">Nom: </label>
+                    <input type="text" name="nom"
+                     style="font-size: 16px; margin-bottom: 23px;">
+                     
+                    <br>
+            
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div> -->
+    
+    <div th:utext="${foot_imports}"></div>
+
+    
+    
+</body>
+</html>

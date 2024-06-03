@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Fabrication meuble</u></h3>
+        <form action="/insertnewfabrication" method="post">
+            <p th:text="${form_meuble_null}"></p>
+            <label for="formule">Formule utilisée:</label>
+            <select name="idCategorie" id="categories">
+                <option th:each="categorie : ${categories}" th:value="${categorie.getId()}" th:text="${categorie.getNom()}"></option>
+            </select>
+            <select name="idStyle" id="styles">
+                <option th:each="style : ${styles}" th:value="${style.getId()}" th:text="${style.getNom()}"></option>
+            </select>
+            <select name="idVolume" id="volumes">
+                <option th:each="volumes : ${volumes}" th:value="${volumes.getId()}" th:text="${volumes.getNom()}"></option>
+            </select>
+            <label for="quantite">Quantité:</label>
+            <input name="quantite" id="quantite" type="number"> <br>
+
+            <button type="submit" class="btn btn-primary">Fabriquer</button>
+        </form>
+    </div>
+</body>
+</html>

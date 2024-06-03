@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fragment Example</title>
+</head>
+<body>
+    <div th:fragment="info(travaux)">
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="avatar-sm me-3 border-radius-lg">
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                <h6 class="mb-0 text-sm" th:text="${travaux.getId()}"></h6>
+                </div>
+            </div>
+        </td>
+        <td>
+            <h6 class="mb-0 text-sm" th:text="${travaux.getTypetravaux()}"></h6>
+        </td>
+        <div th:if="${travaux.getSoustravaux().size() != 0}">
+            <td class="align-middle text-center text-sm">
+            </td>
+            <td class="align-middle text-center">
+                <h6 class="mb-0 text-sm"></h6>
+            </td>
+            <td class="align-middle text-center">
+                <h6 class="mb-0 text-sm"></h6>
+            </td>
+            <th class="text-uppercase text-secondary text-center font-weight-bolder opacity-7">
+            </th>
+            <tr th:each=" travauxfille: ${travaux.getSoustravaux()}">
+                <div th:replace="~{fragments/infotravaux :: info(travaux = ${travauxfille})}"></div>
+            </tr>
+        </div>
+        <div th:unless="${travaux.getSoustravaux().size() != 0}">
+            <td class="align-middle text-center text-sm" th:text="${travaux.getUnite().getSymbole()}">
+            </td>
+            <td class="align-middle text-center">
+                <h6 class="mb-0 text-sm" th:text="${travaux.getQuantite()}"></h6>
+            </td>
+            <td class="align-middle text-center">
+                <h6 class="mb-0 text-sm" th:text="${travaux.getPrixunitaire()}"></h6>
+            </td>
+            <th class="text-uppercase text-secondary text-center font-weight-bolder opacity-7" th:text="${travaux.getQuantite() * travaux.getPrixunitaire()}">
+            </th>
+        </div>
+    </div>
+    </body>
+</html>

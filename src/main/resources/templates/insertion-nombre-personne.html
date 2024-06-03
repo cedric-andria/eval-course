@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <h>Insertion nombre personne volume</h>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+                <form action="/insertnew_volume_nb_ouvrier" method="post">
+                    <p><label for="Style" style="font-size: 16px;">Volume: </label>
+                        <select name="idVolume">
+                            <option th:each="volume : ${volumes}" th:value="${volume.getId()}" th:text="${volume.getNom()}"></option>
+                        </select>
+                    </p>
+                    <p><label for="Personnes requises" style="font-size: 16px;">Personnes requises: </label>
+                        <input type="number" name="nb_personnes" style="font-size: 16px; margin-bottom: 23px;">
+                    </p>
+        
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div>
+    
+</body>
+</html>

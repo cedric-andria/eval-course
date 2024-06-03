@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                        <span class="text-white text-capitalize ps-7" th:text="${'Liste materiaux dy style ' + styleselectionne.getNom()}">
+                        </span>
+                        <span style="color: transparent;" >AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+                        <span class="dropdown ps-12 ">
+                          <button class="btn bg-gradient-danger dropdown-toggle" id="dropdownMenuButton-ok" data-bs-toggle="dropdown" aria-expanded="false">
+                              Style
+                          </button>
+                          <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-ok">
+                          <li th:each="style : ${listestyles}" ><a class="dropdown-item" th:href="@{${'#' + style.getId()}}" th:text="${style.getNom()}"></a></li>
+                          </ul>
+                          <script>
+                              const ddownLinks = document.querySelectorAll('#dropdown-menu-ok a');
+                              console.log(ddownLinks);
+                              // Attach the click event handler to each <a> element
+                              ddownLinks.forEach(function(link) {
+                                  console.log('misy element');
+                                  link.addEventListener('click', function(event) {
+                                      event.preventDefault(); // Prevent the default behavior of the link
+                                      document.getElementById('dropdownMenuButton-ok').textContent = link.textContent;
+                                      document.getElementById('idstyle_filtre').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                      // Change the text content of the button
+                                  });
+                              });
+                          </script>
+                        </span>
+                        <span><button type="button" class="btn btn-danger" id="button-style-filtre">Change</button></span>
+                    </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                      <table class="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7">Nom</th>
+                            <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                            <th class="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each=" materiau: ${styleselectionne.getMateriaux()}">
+                            <td>
+                            <div class="d-flex px-2 py-1">
+                                <div class="avatar-sm me-3 border-radius-lg">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm" th:text="${materiau.getNom()}"></h6>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                                <h6 class="mb-0 text-sm"></h6>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                              <!-- <span class="badge badge-sm bg-gradient-success">Online</span> -->
+                            </td>
+                            <td class="align-middle text-center">
+                              <!-- <span class="text-secondary text-xs font-weight-bold">23/04/18</span> -->
+                            </td>
+                            <td class="align-middle">
+                              <!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                Edit
+                              </a> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <form action="/newmateriaustyle" method="GET" id="form_filtre_style">
+            <input type="hidden" name="idstyle_filtre" id="idstyle_filtre" required>
+        </form>
+        <div class="container my-auto">
+          <div class="row">
+            <div class="col-lg-4 col-md-8 col-12 mx-auto">
+              <div class="card z-index-0 fadeIn3 fadeInBottom">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Assignation materiau style</h4>
+                    <div class="row mt-3">
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <form role="form" class="text-start" action="insertnewmateriaustyle" method="POST" onsubmit="return validateForm()">
+                        <div class="dropdown">
+                            <input type="hidden" name="idstyle" id="idstyle" required>
+                            <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-insert" data-bs-toggle="dropdown" aria-expanded="false">
+                                Style
+                            </button>
+                            <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-insert">
+                              <li th:each="style : ${listestyles}" ><a class="dropdown-item" th:href="@{${'#' + style.getId()}}" th:text="${style.getNom()}"></a></li>
+                            </ul>
+                            <script>
+                                const dropdownLinks = document.querySelectorAll('#dropdown-menu-insert a');
+                                console.log(dropdownLinks);
+                                // Attach the click event handler to each <a> element
+                                dropdownLinks.forEach(function(link) {
+                                    console.log('misy element');
+                                    link.addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the default behavior of the link
+                                        document.getElementById('dropdownMenuButton-insert').textContent = link.textContent;
+                                        document.getElementById('idstyle').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                        // Change the text content of the button
+                                    });
+                                });
+                                const button_filtre = document.getElementById('button-style-filtre');
+                                button_filtre.addEventListener('click', function()
+                                {
+                                    document.getElementById('form_filtre_style').submit();
+                                });
+                            </script>
+                        </div>
+                        <div class="form-check" th:each="materiau : ${listemateriaux}">
+                            <input class="form-check-input" type="checkbox" th:value="${materiau.getId()}" id="fcustomCheck1" name="idmateriaux[]">
+                            <label th:text="${materiau.getNom()}" class="custom-control-label" for="customCheck1"></label>
+                        </div>
+                        <h5 id="checkboxes-unchecked"></h5>
+                        <div class="text-center">
+                            <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button>
+                        </div>
+                    </form>
+                    <script>
+                        function validateForm() {
+                            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                            var isChecked = false;
+                
+                            checkboxes.forEach(function(checkbox) {
+                                if (checkbox.checked) {
+
+                                    isChecked = true;
+                                    document.getElementById('checkboxes-unchecked').textContent = '';
+
+                                    // If at least one checkbox is checked, exit the loop early
+                                    return;
+                                }
+                            });
+                
+                            if (!isChecked) {
+                                // alert("Please check at least one checkbox.");
+                                document.getElementById('checkboxes-unchecked').textContent = "You should check at least one checkbox";
+                                return false; // Prevent form submission
+                            }
+                            // Form submission can proceed
+                            return true;
+                        }
+                    </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <!-- <div th:utext="${menu_list}">
+        
+    </div>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+            <h2>Insertion categorie</h2>
+
+                <form action="/insertnewcategorie" method="post">
+                    <label for="nom" style="font-size: 16px;">Nom: </label>
+                    <input type="text" name="nom"
+                     style="font-size: 16px; margin-bottom: 23px;">
+                     
+                    <br>
+            
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div> -->
+    
+    <div th:utext="${foot_imports}"></div>
+
+    
+    
+</body>
+</html>

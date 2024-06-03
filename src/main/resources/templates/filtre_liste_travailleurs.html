@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Critère filtre liste travailleurs</u></h3> <br>
+        <form action="/listeouvriersfiltree" method="post">
+            <label for="profil">Profil:</label>
+            <select name="idProfil">
+                <option th:each="profil : ${profils}" th:text="${profil.getDescription()}" th:value="${profil.getId()}"></option>
+            </select> <br>
+
+            <button type="submit" class="myButton btn btn-primary"
+            >Voir liste</button>
+        </form>
+    </div>
+</body>
+</html>

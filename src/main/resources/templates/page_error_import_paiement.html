@@ -1,0 +1,137 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:utext="${imports}">
+</head>
+
+<body class="g-sidenav-show  bg-gray-200" style="background-image: url('img/bg-grey.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+      var sidebar = /*[[${sidebar}]]*/ 'default value';
+      document.write(sidebar);
+    /*]]>*/
+  </script>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col-lg-4 col-md-8 col-12 mx-auto">
+          <div class="card z-index-0 fadeIn3 fadeInBottom mt-4">
+            <div class="card-header p-0 position-relative mt-4 mx-3 z-index-2">
+              <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Liste des tables</h4>
+                <div class="row mt-3">
+                </div>
+              </div>
+            </div>
+            <script>
+              function filterObject(originalObject, attributesToKeep)
+              {
+                const filteredObj = {};
+                for (const key in originalObject) {
+                    if (attributesToKeep.includes(key)) {
+                        filteredObj[key] = originalObject[key];
+                    }
+                }
+                return filteredObj;
+              }
+
+              const callPost = async(url = "", data, logged = false) => {
+                return new Promise(async (resolve, reject) => {
+                    console.log("Calling url : "+url);
+                    let toReturn = [];
+                    let headers = {
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                    console.log('data : ');
+                    console.log(data);
+
+                    toReturn = await fetch(url, {
+                        method: 'POST',
+                        ...headers,
+                        body: data,
+                    })
+                    toReturn = await toReturn.json();
+                    console.log(toReturn);
+                    resolve(toReturn);
+                })
+              }
+
+            </script>
+            <div class="card-header pb-0">
+              <h6>Data coherence related errors</h6>
+            </div>
+            <div class="card-body">
+              <div class="timeline timeline-one-side">
+                <div th:each="hashError : ${errors}" class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="material-icons text-danger text-gradient">code</i>
+                  </span>
+                  <div th:each="error : ${hashError}" class="timeline-content">
+                    <h6 th:text="${error.value}" class="text-dark text-sm font-weight-bold mb-0"></h6>
+                    <p th:text="${'Ligne numero ' + error.key}"  class="text-secondary font-weight-bold text-xs mt-1 mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              <form role="form" class="text-start" action="processimportpaiement" method="GET">
+                  <div class="text-center">
+                      <!-- <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button> -->
+                      <div th:if="${errors.size() == 0}">
+                        <input type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" value="Finish split CSV import"/>
+                      </div>
+                      <div th:unless="${errors.size() == 0}">
+                        <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" disabled>Finish split CSV import</button>
+                      </div>
+                      <a href="gotouploadpaiement"><button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Back to file upload</button></a>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-header align-items-start min-vh-100">
+      <script th:inline="javascript">
+        /*<![CDATA[*/
+        var footer = /*[[${footer}]]*/ 'default value';
+        document.write(footer);
+        /*]]>*/
+      </script>
+    </div>
+    
+  </main>
+  <div class="fixed-plugin" th:utext="${settings}">
+    
+  </div>
+  <!--   Core JS Files   -->
+  <div th:utext="${foot_imports}"></div>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var jsonHashTables = /*[[${jsonHashTables}]]*/{};
+    // console.log(JSON.parse(jsonHashTables)); 
+    /*]]>*/
+    const forbiddentable_occurences = document.querySelectorAll('[id*="temptable"]');
+    for (var i = 0; i < forbiddentable_occurences.length; i++) {
+      forbiddentable_occurences[i].style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>

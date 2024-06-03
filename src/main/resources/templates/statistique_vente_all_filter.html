@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h2>Tableau statistique de nombres de ventes par genre</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Genres 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+                    </svg>
+                    | Spécification meuble 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                    </svg>
+                    
+                    <p></p>
+                    <th th:each=" meuble : ${karazana_meuble}" th:text="${meuble.getVolume().getNom() + '-' + meuble.getCategorie().getNom() + '-' + meuble.getStyle().getNom()}"></th>
+                    
+                </th>
+            </tr>
+            <tr th:each=" genre: ${genres}">
+                <td th:text="${genre.getDescription()}"> </td>
+                <td th:each=" stat_par_genre : ${hashmap_genre_stat.get(genre.getDescription())}" th:text="${stat_par_genre.getStat() + '%'}"></td>
+
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td th:each=" meuble : ${karazana_meuble}" th:text="${hashmap_total_par_csv.get(meuble.getCategorie().getNom() + '-' + meuble.getStyle().getNom() +  '-' +meuble.getVolume().getNom())}"></td>
+
+            </tr>
+            <!-- <tr>
+                <td th:each=" stat_par_genre, indice : ${stats_par_genre}" th:if="${indice}" th:text="${stat_par_genre.getStat()}"></td>
+            </tr> -->
+        </table>
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3>Selection filtre statistique</h3>
+        <form action="/statistique_vente" method="POST">
+            <label for="categorie">Categorie</label>
+            <select name="idCategorie" id="categories">
+                <option th:each="categorie : ${categories}" th:value="${categorie.getId()}" th:text="${categorie.getNom()}"></option>
+            </select>
+            <label for="style">Style</label>
+            <select name="idStyle" id="styles">
+                <option th:each="style : ${styles}" th:value="${style.getId()}" th:text="${style.getNom()}"></option>
+            </select>
+            <label for="style">Volume</label>
+            <select name="idVolume" id="volumes">
+                <option th:each="volumes : ${volumes}" th:value="${volumes.getId()}" th:text="${volumes.getNom()}"></option>
+            </select>
+            
+            <label for="volume">Filtre tous :</label>
+            <select name="all_filtre" id="all_filtre">
+                <option value="oui">
+                    Oui
+                </option>
+                <option value="non">
+                    Non
+                </option>
+            </select> <br>
+            <button type="submit" class="btn btn-primary">Voir statistiques</button>
+        </form>
+    </div>
+</body>
+</html>

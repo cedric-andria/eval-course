@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="container">
+        <div class="newcontainer">
+            <h2>Insertion prix vente meuble</h2>
+            <form action="/insertnewprixvente" method="post" id="form">
+                <label for="Duree" style="font-size: 16px;">Categorie </label>
+                <select name="idCategorie" id="categories" style="font-size: 16px; font-family: Arial;">
+                    <option th:each="categorie : ${categories}" th:value="${categorie.getId()}" th:text="${categorie.getNom()}"></option>
+                </select>
+                <select name="idStyle" id="styles" style="font-size: 16px; font-family: Arial;">
+                    <option th:each="style : ${styles}" th:value="${style.getId()}" th:text="${style.getNom()}"></option>
+                </select>
+                <select name="idVolume" id="volumes" style="font-size: 16px; font-family: Arial;">
+                    <option th:each="volume : ${volumes}" th:value="${volume.getId()}" th:text="${volume.getNom()}"></option>
+                </select>
+                <label for="quantite" style="font-size: 16px;">Prix :</label>
+                <input type="text" name="prix">
+
+                <button type="submit" class="btn btn-primary"
+                 style="font-size: 16px;">Inserer</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

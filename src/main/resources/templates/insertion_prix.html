@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Insertion prix unitaire des matériaux</u></h3>
+        <form action="/insertpumateriau" method="post">
+            <label for="materiel">Matériel:</label>
+                <select name="idMateriau" id="materiel">
+                    <option th:each="materiau : ${materiaux}" th:text="${materiau.getNom()}" th:value="${materiau.getId()}"></option>
+                </select> <br>
+            <label for="prix">Prix unitaire:</label>
+            <input type="text" name="montant" id="montant"> <br>
+
+            <button type="submit" class="btn btn-primary">Insérer</button>
+        </form>
+    </div>
+</body>
+</html>

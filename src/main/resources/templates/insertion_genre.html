@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                      <h6 class="text-white text-capitalize ps-7">Liste categorie</h6>
+                    </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                      <table class="table align-items-center mb-0">
+                        <thead>
+                          <tr>
+                            <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7">Nom</th>
+                            <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                            <th class="text-secondary opacity-7"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each=" genre: ${genres}">
+                            <td>
+                            <div class="d-flex px-2 py-1">
+                                <div class="avatar-sm me-3 border-radius-lg">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm" th:text="${genre.getDescription()}"></h6>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                                <h6 class="mb-0 text-sm"></h6>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                              <!-- <span class="badge badge-sm bg-gradient-success">Online</span> -->
+                            </td>
+                            <td class="align-middle text-center">
+                              <!-- <span class="text-secondary text-xs font-weight-bold">23/04/18</span> -->
+                            </td>
+                            <td class="align-middle">
+                              <!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                Edit
+                              </a> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="container my-auto">
+            <div class="row">
+              <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                <div class="card z-index-0 fadeIn3 fadeInBottom">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                      <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Insertion genre</h4>
+                      <div class="row mt-3">
+                      </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <form role="form" class="text-start" action="insertnewgenre" method="POST">
+                          <div class="input-group input-group-outline my-3">
+                              <!-- <label class="form-label">Nom categorie</label> -->
+                              <input type="text" placeholder="Description genre" class="form-control" name="description">
+                          </div>
+                          <div class="text-center">
+                              <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <!-- <div th:utext="${menu_list}">
+        
+    </div>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+            <h2>Insertion categorie</h2>
+
+                <form action="/insertnewcategorie" method="post">
+                    <label for="nom" style="font-size: 16px;">Nom: </label>
+                    <input type="text" name="nom"
+                     style="font-size: 16px; margin-bottom: 23px;">
+                     
+                    <br>
+            
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div> -->
+    
+    <div th:utext="${foot_imports}"></div>
+
+    
+    
+</body>
+</html>

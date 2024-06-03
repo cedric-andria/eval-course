@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                    <div class="card z-index-0 fadeIn3 fadeInBottom">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-dark shadow-primary border-radius-lg py-3 pe-1">
+                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Finalisation formule meuble</h4>
+                            <div class="row mt-3">
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <div class="card-body">
+                            <form role="form" class="text-start" action="insertnewformule" method="POST">
+                                <div class="dropdown">
+                                    <input type="hidden" name="idCategorie" id="idCategorie" th:value="${idCategorie}" required>
+                                    <input type="hidden" name="idStyle" id="idStyle" th:value="${idStyle}" required>
+                                    <input type="hidden" name="idVolume" id="idVolume" th:value="${idVolume}" required>
+                                    <input type="hidden" name="idMateriau" id="idmateriau" required>
+                                    <input type="hidden" name="idOuvrier" id="idouvrier" required>
+
+                                    <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-materiau" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Materiau
+                                    </button>
+                                    <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-materiau">
+                                      <li th:each="materiau : ${materiaux}" ><a class="dropdown-item" th:href="@{${'#' + materiau.getId()}}" th:text="${materiau.getNom()}"></a></li>
+                                    </ul>
+                                    <!-- any ambany ny script an'ilay materiau -->
+                                    <button class="btn bg-gradient-primary dropdown-toggle" id="dropdownMenuButton-ouvrier" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Ouvrier
+                                    </button>
+                                    <!-- <button type="button" onclick="{document.getElementById('dropdownMenuButton').textContent = 'Miova'}">test</button> -->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-menu-ouvrier">
+                                        <li th:each="ouvrier : ${ouvriers}" ><a class="dropdown-item" th:href="@{${'#' + ouvrier.getId()}}" th:text="${ouvrier.getDescription()}"></a></li>
+                                    </ul>
+                                    <script>
+                                        const dropdownLinks_ouvrier = document.querySelectorAll('#dropdown-menu-ouvrier a');
+                                        console.log(dropdownLinks_ouvrier);
+                                        // Attach the click event handler to each <a> element
+                                        dropdownLinks_ouvrier.forEach(function(link) {
+                                            console.log('misy element');
+                                            link.addEventListener('click', function(event) {
+                                                event.preventDefault(); // Prevent the default behavior of the link
+                                                document.getElementById('dropdownMenuButton-ouvrier').textContent = link.textContent;
+                                                document.getElementById('idouvrier').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                                // Change the text content of the button
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
+                                <div class="input-group input-group-outline my-3">
+                                  <!-- <label class="form-label">Nom categorie</label> -->
+                                  <input type="number" placeholder="Duree de travail" class="form-control" name="duree_travail">
+                                </div>
+                                <div class="input-group input-group-outline my-3">
+                                    <!-- <label class="form-label">Nom categorie</label> -->
+                                    <input type="number" placeholder="Quantite materiau" class="form-control" name="quantite">
+                                  </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button>
+                                </div>
+                            </form>
+                            <form role="form" class="text-start" action="selectmateriau_to_list_meuble" method="POST">
+                                <input type="hidden" name="idMateriau" id="idmateriau_filtre" required>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Voir quantité utilisée</button>
+                                </div>
+                            </form>
+                            <script>
+                                const dropdownLinks_materiau = document.querySelectorAll('#dropdown-menu-materiau a');
+                                console.log(dropdownLinks_materiau);
+                                // Attach the click event handler to each <a> element
+                                dropdownLinks_materiau.forEach(function(link) {
+                                    console.log('misy element');
+                                    link.addEventListener('click', function(event) {
+                                        event.preventDefault(); // Prevent the default behavior of the link
+                                        document.getElementById('dropdownMenuButton-materiau').textContent = link.textContent;
+                                        document.getElementById('idmateriau').value = link.getAttribute('href').substring(1); // Change the text content of the button
+                                        document.getElementById('idmateriau_filtre').value = link.getAttribute('href').substring(1); // Change the text content of the button
+
+                                         // Change the text content of the button
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <!-- <div th:utext="${menu_list}">
+        
+    </div>
+    <div class="container" style="margin-top: 40px;">
+        <div class="col-md-2 col-lg-2"></div>
+            <div class="col-md-4 col-lg-4">
+            <h2>Insertion categorie</h2>
+
+                <form action="/insertnewcategorie" method="post">
+                    <label for="nom" style="font-size: 16px;">Nom: </label>
+                    <input type="text" name="nom"
+                     style="font-size: 16px; margin-bottom: 23px;">
+                     
+                    <br>
+            
+                    <input type="submit" value="Valider" style="font-size: 16px;"
+                     class="btn-primary btn">
+                </form>
+            </div>
+        <div class="col-md-2 col-lg-2"></div>
+    </div> -->
+    
+    <div th:utext="${foot_imports}"></div>
+
+    
+    
+</body>
+</html>

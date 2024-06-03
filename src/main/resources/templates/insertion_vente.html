@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Insertion vente</u></h3>
+        <form action="/insertnewvente" method="post">
+            <label for="categorie">Categorie</label>
+            <select name="idCategorie" id="categories">
+                <option th:each="categorie : ${categories}" th:value="${categorie.getId()}" th:text="${categorie.getNom()}"></option>
+            </select>
+            <label for="style">Style</label>
+            <select name="idStyle" id="styles">
+                <option th:each="style : ${styles}" th:value="${style.getId()}" th:text="${style.getNom()}"></option>
+            </select>
+            <label for="style">Volume</label>
+            <select name="idVolume" id="volumes">
+                <option th:each="volumes : ${volumes}" th:value="${volumes.getId()}" th:text="${volumes.getNom()}"></option>
+            </select>
+            <label for="quantite">Quantité:</label>
+            <input name="quantite" id="quantite" type="number"> <br>
+            <label for="genre">Genre:</label>
+            <select name="idGenre" id="genres">
+                <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getDescription()}"></option>
+            </select>
+            <input type="date" name="date_vente">
+
+            <button type="submit" class="btn btn-primary">Insérer</button>
+        </form>
+    </div>
+</body>
+</html>

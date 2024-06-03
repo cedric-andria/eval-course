@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h3><u>Meubles filtrés par montant de benefice</u></h3>
+        <table class="table-striped">
+            <thead>
+                <tr>
+                    <td>Catégorie</td>
+                    <td>Style</td>
+                    <td>Volume</td>
+                    <td>Benefice</td>
+                </tr>
+            <thead>
+            <tbody>
+                <tr th:each="benefice : ${benefices}" class="align-middle">
+                    <td th:text="${benefice.getCategorie().getNom()}">
+                    </td>
+                    <td th:text="${benefice.getStyle().getNom()}"></td>
+                    <td th:text="${benefice.getVolume().getNom()}"></td>
+                    <td th:text="${benefice.getMontant()}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p th:text="${test}"></p>
+</body>
+</html>

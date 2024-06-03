@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+    <title>Meuble</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <script src="js/Chart.min.js"></script>
+    <style>
+        /* Style the canvas element to adjust the size */
+        #myChart {
+          max-width: 350px; /* Set maximum width */
+          margin: auto; /* Center the chart */
+        }
+        </style>
+</head>
+<body>
+    <div th:utext="${menu_list}"></div>
+
+    <div class="divForm">
+        <h2>Tableau statistique de nombres de ventes par genre</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Genres 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+                    </svg>
+                    | Spécification meuble 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                    </svg>
+                    
+                    <p></p>
+                    <th th:each=" meuble : ${karazana_meuble}" th:text="${meuble.getVolume().getNom() + '-' + meuble.getCategorie().getNom() + '-' + meuble.getStyle().getNom()}"></th>
+                    
+                </th>
+            </tr>
+            <tr th:each=" genre: ${genres}">
+                <td th:text="${genre.getDescription()}"> </td>
+                <td th:each=" stat_par_genre : ${hashmap_genre_stat.get(genre.getDescription())}" th:text="${stat_par_genre.getStat() + '%'}"></td>
+
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td th:each=" meuble : ${karazana_meuble}" th:text="${hashmap_total_par_csv.get(meuble.getCategorie().getNom() + '-' + meuble.getStyle().getNom() +  '-' +meuble.getVolume().getNom())}"></td>
+
+            </tr>
+            <!-- <tr>
+                <td th:each=" stat_par_genre, indice : ${stats_par_genre}" th:if="${indice}" th:text="${stat_par_genre.getStat()}"></td>
+            </tr> -->
+        </table>
+        <canvas id="myChart" width="300" height="300"></canvas>
+    
+        
+        <script th:inline="javascript">
+            // Sample data received from Spring Controller
+            // females: /*[[${hashmap_genre_stat.get("Femme")}]]*/ []
+
+            // var genders = ["Male", "Female", "Other"];
+            // var genders = /*[[${genres}]]*/ [];
+
+            // var sales = [30, 40]; // Sample sales data for each gender
+            // var sales = /*[[${genres}]]*/ []; // Sample sales data for each gender
+
+            var salesMap = /*[[${hashmap_genre_stat}]]*/ {};
+
+            // // Calculate total sales
+            // var totalSales = sales.reduce((a, b) => a + b, 0);
+
+            // // Calculate percentages
+            // var percentages = sales.map(sale => ((sale / totalSales) * 100).toFixed(2));
+
+            // Prepare data for Chart.js
+            console.log(salesMap);
+            var data = {
+                labels: Object.keys(salesMap),
+                datasets: [{
+                    data: Object.values(salesMap).map(item => item[0].stat),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)', // Red
+                        'rgba(54, 162, 235, 0.5)', // Blue
+                        'rgba(255, 206, 86, 0.5)' // Yellow
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            // genders.forEach(function(gender) {
+            //     data.labels.push(gender.description);
+            // });
+
+            // Get the context of the canvas element
+            var ctx = document.getElementById('myChart').getContext('2d');
+            
+            // Initialize Chart.js pie chart
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Sales Percentage by Gender'
+                    }
+                }
+            });
+            ctx.width = 300;
+            ctx.height = 300;
+
+        </script>
+        
+    </div>
+</body>
+</html>
