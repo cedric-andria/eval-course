@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Etape {
@@ -18,6 +19,13 @@ public class Etape {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk;
+    @Transient
+    private Classement_etape classement_etape;
+
+    public Etape(int pk, LocalDateTime date_depart) {
+        this.pk = pk;
+        this.date_depart = date_depart;
+    }
     public Etape(String id, String nom, double longueur, int nbcoureur_equipe, int rang, LocalDateTime date_depart) {
         this.id = id;
         this.nom = nom;
@@ -79,5 +87,11 @@ public class Etape {
     }
     public void setPk(int pk) {
         this.pk = pk;
+    }
+    public Classement_etape getClassement_etape() {
+        return classement_etape;
+    }
+    public void setClassement_etape(Classement_etape classement_etape) {
+        this.classement_etape = classement_etape;
     }
 }

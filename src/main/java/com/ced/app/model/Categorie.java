@@ -12,6 +12,10 @@ public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk;
+    public Categorie(String nom, int pk) {
+        this.nom = nom;
+        this.pk = pk;
+    }
     public Categorie(String id, String nom) {
         this.id = id;
         this.nom = nom;

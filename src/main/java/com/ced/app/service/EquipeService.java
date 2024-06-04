@@ -59,7 +59,12 @@ public class EquipeService {
 
     public List<Equipe> getAll()
     {
-        return equipeRepository.findAll();
+        List<Equipe> tabequipes = equipeRepository.findAll();
+        for (Equipe equipe : tabequipes) {
+            equipe.setPoints(0);
+            equipe.setRang(0);
+        }
+        return tabequipes;
     }
 
 }

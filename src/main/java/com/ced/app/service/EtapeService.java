@@ -1,5 +1,8 @@
 package com.ced.app.service;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +66,37 @@ public class EtapeService {
             throw new Exception("no etaped matched by pk");
         }
         return matchedEtape;
+    }
+
+    public Etape findByPk(Connection connect, int pk) throws Exception
+    {
+        Statement stmt = null;
+        ResultSet rst = null;
+        List<Etape> tabEtape = new ArrayList<>();
+        Etape matchedEtape = null;
+        String query = "select * from etape where pk = " + pk;
+
+        try {
+            stmt = connect.createStatement();
+            rst = stmt.executeQuery(query);
+            if (!rst.isBeforeFirst()) {
+                throw new Exception("Etape findbyPk(connection) vide");
+            }
+            while (rst.next()) {
+                tabEtape.add(new Etape(rst.getInt("pk"), rst.getTimestamp("date_depart").toLocalDateTime()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally
+        {
+            rst.close();
+            stmt.close();
+        }
+        matchedEtape = tabEtape.get(0);
+        return matchedEtape;
+
     }
 
     @SuppressWarnings("unchecked")

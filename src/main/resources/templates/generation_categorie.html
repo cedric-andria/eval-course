@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head th:utext="${imports}">
+    </head>
+<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+          var sidebar = /*[[${sidebar}]]*/ 'default value';
+          document.write(sidebar);
+        /*]]>*/
+    </script>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <div class="container-fluid py-4">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                      <h6 class="text-white text-capitalize ps-7">Generation categorie</h6>
+                      <h6 class="text-danger text-capitalize ps-7" th:text="${erreur}"></h6>
+                    </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+                    <div class="mx-3">
+                        <a class="btn btn-outline-primary mt-4 w-20" href="generatecategorie" type="button">Generer categorie</a>
+                        <a class="btn btn-outline-secondary mt-4 w-20" href="attemptloginuser?pageNumber=0" type="button">Retour</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var footer = /*[[${footer}]]*/ 'default value';
+                document.write(footer);
+                /*]]>*/
+            </script>
+        </div>
+        
+    </main>
+    <div class="fixed-plugin" th:utext="${settings}">
+    
+    </div>
+    <div th:utext="${foot_imports}"></div>
+    
+</body>
+</html>

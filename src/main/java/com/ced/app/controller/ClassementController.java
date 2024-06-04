@@ -28,7 +28,7 @@ public class ClassementController {
     private EtapeService etapeService;
 
     @GetMapping("/getclassement_etape")
-    public String getclassement_etape(HttpSession session, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "3") int elementsPerPage, @RequestParam(name = "idetape", defaultValue = "1", required = true) String idetape, Model model)
+    public String getclassement_etape(HttpSession session, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "3") int elementsPerPage, @RequestParam(name = "idetape", defaultValue = "1", required = true) String idetape, @RequestParam(name = "idcategorie", defaultValue = "1", required = true) String idcategorie, Model model)
     {
         model.addAttribute("imports", StaticImportController.head_imports);
         model.addAttribute("sidebar", StaticImportController.sidebar);
@@ -51,9 +51,21 @@ public class ClassementController {
             e.printStackTrace();
             return "redirect:/attemptloginuser?pageNumber=0";
         }
+        Categorie matchedCategorie = null;
+        try {
+            matchedCategorie = categorieService.findByPk(Integer.parseInt(idcategorie));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/attemptloginuser?pageNumber=0";
+        }
         model.addAttribute("etape", matchedEtape);
+        model.addAttribute("categorie", matchedCategorie);
         model.addAttribute("classement_etape", classementService.getClassementEtape(Integer.parseInt(idetape)));
+        model.addAttribute("classement_etape_categorie", classementService.getClassementEtapeWithCat(Integer.parseInt(idetape), Integer.parseInt(idcategorie)));
         model.addAttribute("tabetapes", etapeService.findAllOrderByRang());
+        model.addAttribute("tabcategories", categorieService.getAll());
+
+
         return "classement_par_etape";
     }
 
@@ -75,13 +87,17 @@ public class ClassementController {
             return "redirect:/getclassement_etape?pageNumber=0";
         }
         int pkcategorie = Integer.parseInt(idcategorie);
+        
         Categorie matchedCategorie = null;
-        try {
+        if (pkcategorie != 0) {
+            try {
             matchedCategorie = categorieService.findByPk(pkcategorie);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/attemptloginuser?pageNumber=0";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "redirect:/attemptloginuser?pageNumber=0";
         }
+        }
+        
         model.addAttribute("categorie", matchedCategorie);
         model.addAttribute("classement_equipe", classementService.getClassementEquipe(pkcategorie));
         model.addAttribute("tabcategories", categorieService.getAll());

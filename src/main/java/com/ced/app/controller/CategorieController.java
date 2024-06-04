@@ -1,37 +1,45 @@
 package com.ced.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ced.app.service.CategorieService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CategorieController {
-    @GetMapping("/getclassement_etape")
-    public String getclassement_etape(HttpSession session, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "3") int elementsPerPage, @RequestParam(name = "idetape", defaultValue = "1", required = true) String idetape, Model model)
+
+    @Autowired
+    private CategorieService categorieService;
+
+    @GetMapping("/generatecategorie")
+    public String generatecategorie(HttpSession session, Model model)
     {
+        if (session.getAttribute("profil") == null) {
+            return "redirect:/";
+        }
+        if (!session.getAttribute("profil").toString().equalsIgnoreCase("admin")) {
+            return "redirect:/";
+        }
         model.addAttribute("imports", StaticImportController.head_imports);
         model.addAttribute("sidebar", StaticImportController.sidebar);
         model.addAttribute("settings", StaticImportController.settings);
         model.addAttribute("footer", StaticImportController.footer);
         model.addAttribute("foot_imports", StaticImportController.foot_imports);
-        String profil = null;
-        if (session.getAttribute("profil") == null) {
-            return "redirect:/";
-        }
-        profil = session.getAttribute("profil").toString();
-        if (pageNumber < 0) {
-            // Redirect to the first page if page value is negative
-            return "redirect:/getclassement_etape?pageNumber=0";
-        }
-        Etape matchedEtape = null;
+        String erreur = "";
         try {
-            matchedEtape = etapeService.getByPk(Integer.parseInt(idetape));
+            erreur = categorieService.generateCategorie();
         } catch (Exception e) {
+            // TODO: handle exception
             e.printStackTrace();
-            return "redirect:/gotoclassement_etape";
+            erreur = e.getMessage();
         }
-        model.addAttribute("etape", matchedEtape);
-        model.addAttribute("classement_etape", classementService.getClassementEtape(Integer.parseInt(idetape)));
-        model.addAttribute("tabetapes", etapeService.findAllOrderByRang());
-        return "classement_par_etape";
+
+        model.addAttribute("erreur", erreur);
+        return "redirect:/gotogeneratecategorie";
        
     }
 }

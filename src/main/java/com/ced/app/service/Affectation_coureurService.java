@@ -1,5 +1,9 @@
 package com.ced.app.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -21,6 +25,12 @@ import jakarta.transaction.Transactional;
 public class Affectation_coureurService {
     @Autowired
     private Affectation_coureurRepository affectation_coureurRepository;
+
+    @Autowired
+    private CoureurService coureurService;
+
+    @Autowired
+    private EtapeService etapeService;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -85,5 +95,30 @@ public class Affectation_coureurService {
         native_query.setParameter("idcoureur", idcoureur);
         affectation = (Affectation_coureur)native_query.getSingleResult();
         return affectation;
+    }
+
+    public List<Affectation_coureur> getAll(Connection connect) throws Exception
+    {
+        List<Affectation_coureur> tabAffectation_coureurs = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rst = null;
+        try {
+            stmt = connect.createStatement();
+            rst = stmt.executeQuery("select * from affectation_coureur");
+            if(!rst.isBeforeFirst()){
+                throw new Exception("affectation_coureur(connection) get all vide");
+            }
+            while (rst.next()) {
+                tabAffectation_coureurs.add(new Affectation_coureur(rst.getString("id"), coureurService.findByPk(connect, rst.getInt("idcoureur")), etapeService.findByPk(connect, rst.getInt("idetape")), rst.getInt("pk")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally{
+            rst.close();
+            stmt.close();
+        }
+        return tabAffectation_coureurs;
     }
 }

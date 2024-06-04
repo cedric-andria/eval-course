@@ -23,6 +23,9 @@ public class Equipe {
     @Transient
     private int rang;
     
+    public Equipe(int pk) {
+        this.pk = pk;
+    }
     public Equipe(String id, String nom, Utilisateur utilisateur) {
         this.id = id;
         this.nom = nom;

@@ -108,7 +108,6 @@ create table Categorie(
 insert into Categorie(nom) values ('Homme');
 insert into Categorie(nom) values ('Femme');
 insert into Categorie(nom) values ('Junior');
-insert into Categorie(nom) values ('Senior');
 
 create table Categorie_coureur(
     idcoureur int references Coureur(pk),
@@ -216,3 +215,53 @@ create table Penalite(
     created_at timestamp default now()
 );
 
+create table tempetape(
+    etape varchar(50),
+    longueur double precision,
+    nb_coureur int,
+    rang int,
+    date_depart date,
+    heure_depart time
+);
+-- drop table tempetape;
+create table tempresultat(
+    etape_rang int,
+    numero_dossard varchar(50),
+    nom varchar(50),
+    genre varchar(10),
+    date_naissance date,
+    equipe varchar(10),
+    arrivee timestamp
+);
+-- drop table tempresultat;
+-- insert into tempresultat values (1, 1, 'Tiana', 'F', '05/10/1959', 'B', '2024-06-01 10:01:34');
+-- insert into tempresultat values (1, 2, 'Faniry', 'F', '03/07/1955', 'A', '2024-06-01 09:54:03');
+-- insert into tempresultat values (1, 3, 'Zo', 'M', '18/11/1963', 'C', '2024-06-01 09:55:21');
+-- insert into tempresultat values (1, 4, 'Solo', 'M', '07/07/1982', 'D', '2024-06-01 10:01:34');
+
+create table temppoints(
+    classement int,
+    points double precision
+);
+-- drop table temppoints;
+
+-- drop table penalite;
+-- drop sequence scpenalite;
+-- drop table Parametre_penalite;
+-- drop sequence scparametre_penalite;
+-- drop table Histo_etape_coureur;
+-- drop sequence schistoetapecoureur;
+-- drop table Affectation_coureur;
+-- drop sequence scaffectation;
+-- drop table Categorie_coureur;
+-- drop table Categorie;
+-- drop sequence sccategorie;
+-- drop table Coureur;
+-- drop sequence sccoureur;
+-- drop table Genre;
+-- drop sequence scgenre;
+-- drop table Equipe;
+-- drop sequence scequipe;
+-- drop table Etape;
+-- drop sequence scetape;
+-- drop table Param_points_rang;

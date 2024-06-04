@@ -1,5 +1,8 @@
 package com.ced.app.service;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,5 +35,38 @@ public class CoureurService {
         matchedCoureur = tabcoureur.get(0);
         
         return matchedCoureur;
+    }
+
+    public Coureur findByPk(Connection connect, int pk) throws Exception
+    {
+        Statement stmt = null;
+        ResultSet rst = null;
+        List<Coureur> tabcoureur = new ArrayList<>();
+        Coureur matchedCoureur = null;
+        String query = "select * from coureur where pk = " + pk;
+
+        try {
+            stmt = connect.createStatement();
+            rst = stmt.executeQuery(query);
+            if(!rst.isBeforeFirst())
+            {
+                throw new Exception("Coureur findbyPk(connection) vide");
+            }
+            while (rst.next()) {
+                tabcoureur.add(new Coureur(rst.getInt("pk")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally
+        {
+            rst.close();
+            stmt.close();
+        }
+        
+        matchedCoureur = tabcoureur.get(0);
+        return matchedCoureur;
+
     }
 }

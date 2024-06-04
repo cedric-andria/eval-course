@@ -1,5 +1,6 @@
 package com.ced.app.controller;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -194,6 +195,76 @@ public class UtilisateurController {
         model.addAttribute("idetape", idetape);
         // session.setAttribute("idetape", idetape);
         return "affectation-temps-coureur-admin";
+    }
+
+    @GetMapping("/gotouploadetapesresultats")
+    public String gotouploadetapesresultats(HttpSession session, Model model)
+    {
+        if (session.getAttribute("profil") == null) {
+            return "redirect:/";
+        }
+        if (!session.getAttribute("profil").toString().equalsIgnoreCase("admin")) {
+            return "redirect:/";
+        }
+        model.addAttribute("imports", StaticImportController.head_imports);
+        model.addAttribute("sidebar", StaticImportController.sidebar);
+        model.addAttribute("settings", StaticImportController.settings);
+        model.addAttribute("footer", StaticImportController.footer);
+        model.addAttribute("foot_imports", StaticImportController.foot_imports);
+        model.addAttribute("errorsetapes", new ArrayList<String>());
+        model.addAttribute("errorsresultats", new ArrayList<String>());
+
+        return "importetapesresultats";
+    }
+
+    @GetMapping("/gotouploadpoints")
+    public String gotouploadpoints(HttpSession session, Model model)
+    {
+        if (session.getAttribute("profil") == null) {
+            return "redirect:/";
+        }
+        if (!session.getAttribute("profil").toString().equalsIgnoreCase("admin")) {
+            return "redirect:/";
+        }
+        model.addAttribute("imports", StaticImportController.head_imports);
+        model.addAttribute("sidebar", StaticImportController.sidebar);
+        model.addAttribute("settings", StaticImportController.settings);
+        model.addAttribute("footer", StaticImportController.footer);
+        model.addAttribute("foot_imports", StaticImportController.foot_imports);
+        model.addAttribute("errorspoints", new ArrayList<String>());
+
+        return "importpoints";
+    }
+
+    @GetMapping("/gotogeneratecategorie")
+    public String gotogeneratecategorie(HttpSession session, Model model)
+    {
+        if (session.getAttribute("profil") == null) {
+            return "redirect:/";
+        }
+        if (!session.getAttribute("profil").toString().equalsIgnoreCase("admin")) {
+            return "redirect:/";
+        }
+        model.addAttribute("imports", StaticImportController.head_imports);
+        model.addAttribute("sidebar", StaticImportController.sidebar);
+        model.addAttribute("settings", StaticImportController.settings);
+        model.addAttribute("footer", StaticImportController.footer);
+        model.addAttribute("foot_imports", StaticImportController.foot_imports);
+        model.addAttribute("erreur", "");
+
+        return "generation_categorie";
+    }
+
+    @GetMapping("/gotoresetbase")
+    public String gotoresetbase(HttpSession session, Model model)
+    {
+        if (session.getAttribute("profil") == null) {
+            return "redirect:/";
+        }
+        if (!session.getAttribute("profil").toString().equalsIgnoreCase("admin")) {
+            return "redirect:/";
+        }
+        return "";
     }
 
 }

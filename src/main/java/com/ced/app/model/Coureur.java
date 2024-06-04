@@ -44,6 +44,9 @@ public class Coureur {
     )
     private List<Categorie> categories;
     
+    public Coureur(int pk) {
+        this.pk = pk;
+    }
     public Coureur(String dossard, String nom, Genre genre, LocalDate datenaissance, double pointtotal, Equipe equipe) {
         this.dossard = dossard;
         this.nom = nom;
@@ -51,6 +54,18 @@ public class Coureur {
         this.datenaissance = datenaissance;
         this.pointtotal = pointtotal;
         this.equipe = equipe;
+    }
+    public Coureur(Coureur coureur)
+    {
+        this.dossard = coureur.getDossard();
+        this.nom = coureur.getNom();
+        this.genre = coureur.getGenre();
+        this.datenaissance = coureur.getDatenaissance();
+        this.pointtotal = coureur.getPointtotal();
+        this.equipe = coureur.getEquipe();
+        this.pk = coureur.getPk();
+        this.rang = coureur.getRang();
+        this.categories = coureur.getCategories();
     }
     public Coureur(String dossard, String nom, Genre genre, LocalDate datenaissance, double pointtotal, Equipe equipe,
             int pk) {

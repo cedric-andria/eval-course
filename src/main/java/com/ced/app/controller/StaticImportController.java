@@ -139,7 +139,7 @@ public interface StaticImportController {
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white\" href=\"/#\">\r\n" + //
+            "          <a class=\"nav-link text-white\" href=\"/getclassement_equipe_categorie\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
             "              <i class=\"material-icons opacity-10\">groups</i>\r\n" + //
             "            </div>\r\n" + //
@@ -147,126 +147,35 @@ public interface StaticImportController {
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white\" href=\"/newmateriau\">\r\n" + //
+            "          <a class=\"nav-link text-white\" href=\"/gotouploadetapesresultats\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">view_in_ar</i>\r\n" + //
+            "              <i class=\"material-icons-outlined opacity-10\">csv</i>\r\n" + //
             "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Materiau</span>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Import csv Etapes/Resultats</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newmateriaustyle\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"/gotouploadpoints\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">dashboard</i>\r\n" + //
+            "              <i class=\"material-icons-outlined opacity-10\">csv</i>\r\n" + //
             "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Assignation Materiau</span>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Import csv Points</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newparamformule\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"/gotogeneratecategorie\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">app_registration</i>\r\n" + //
+            "              <i class=\"material-icons-outlined opacity-10\">mediation</i>\r\n" + //
             "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Formule meuble</span>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Generation categorie</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newgenre\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">person</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Genre</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newprofil\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">person</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Profil ouvrier</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newouvrier\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">engineering</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Gestion Ouvrier</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/pageselectionfiltreouvrier\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"gotoresetbase\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
             "              <i class=\"material-icons opacity-10\">info</i>\r\n" + //
             "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Infos ouvriers</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/new_volume_nbouvrier\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">design_services</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Assignation nb ouvriers</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/fabrication\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">precision_manufacturing</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Fabrication meuble</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/pageprixminmaxmeublebenefice\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">receipt_long</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Benefice</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/voirrestestock\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">receipt_long</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Stock materiau</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/splittingimport\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-symbols-outlined opacity-10\">csv</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Split CSV import</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item mt-3\">\r\n" + //
-            "          <h6 class=\"ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8\">Rubrique Vente</h6>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newprixvente\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">payments</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Prix vente meuble</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/newvente\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">add_shopping_cart</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Vente meuble</span>\r\n" + //
-            "          </a>\r\n" + //
-            "        </li>\r\n" + //
-            "        <li class=\"nav-item\">\r\n" + //
-            "          <a class=\"nav-link text-white \" href=\"/pageselectionfiltrestatvente\">\r\n" + //
-            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">equalizer</i>\r\n" + //
-            "            </div>\r\n" + //
-            "            <span class=\"nav-link-text ms-1\">Stat Vente</span>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Reinitilisation base</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "      </ul>\r\n" + //
