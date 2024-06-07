@@ -83,7 +83,7 @@ public class EtapeService {
                 throw new Exception("Etape findbyPk(connection) vide");
             }
             while (rst.next()) {
-                tabEtape.add(new Etape(rst.getInt("pk"), rst.getTimestamp("date_depart").toLocalDateTime()));
+                tabEtape.add(new Etape(rst.getInt("pk"), rst.getTimestamp("date_depart").toLocalDateTime(), rst.getInt("rang")));
             }
         } catch (Exception e) {
             e.printStackTrace();

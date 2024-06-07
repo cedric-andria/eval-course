@@ -2,7 +2,7 @@
 <html lang="en">
     <head th:utext="${imports}">
     </head>
-<body class="" style="background-image: url('img/bg-furniture.jpg'); background-size: cover;
+<body class="" style="background-image: url('img/background/running-fitness.png'); background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;">
     <script th:inline="javascript">
@@ -18,17 +18,19 @@ background-attachment: fixed;">
                 <div class="card my-4">
                   <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-info shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 th:if="${categorie == null}" class="text-white text-capitalize ps-7">Toutes categories</h6>
+                        <h6 th:unless="${categorie == null}"  class="text-white text-capitalize ps-7" th:text="${'Categorie ' + categorie.getNom()}"></h6>
                         <h6 class="text-white text-capitalize ps-7">Classement general par equipe</h6>
                         <form action="getclassement_equipe_categorie" method="GET">
-                            <div class="input-group input-group-outline my-3">
-                                <select name="idcategorie"
+                            <div class="input-group input-group-outline my-3 mx-4">
+                                <select name="idcategorie">
                                     <option value="0">Toutes categories</option>
                                     <option th:each="categorie : ${tabcategories}" th:text="${categorie.getNom()}" th:value="${categorie.getPk()}"></option>
                                 </select>
                             </div>
                             <div class="mx-3">
                                 <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" >Changer categorie</button>
-                                <a class="btn btn-outline-primary mt-4 w-100" href="attemptloginuser?pageNumber=0" type="button">Retour</a>
+                                <a class="btn btn-outline-dark mt-4 w-100" href="attemptloginuser?pageNumber=0" type="button">Retour</a>
                             </div>
                         </form>
                     </div>
@@ -67,12 +69,15 @@ background-attachment: fixed;">
                             <td class="align-middle text-center">
                               <!-- <span class="text-secondary text-xs font-weight-bold">23/04/18</span> -->
                             </td>
-                            <td class="align-middle text-center" th:text="${equipe.getPoints()}">
-                              <!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                Edit
-                              </a> -->
+                            <td th:if="${equipe.getHas_exaequo() == 1}" class="align-middle text-center bg-gradient-warning" th:text="${equipe.getPoints()}">
+                              
                             </td>
-                            <td></td>
+                            <td th:unless="${equipe.getHas_exaequo() == 1}" class="align-middle text-center" th:text="${equipe.getPoints()}">
+                              
+                            </td>
+                            <td>
+                              <a class="btn bg-gradient-primary w-100" th:href="'gotodetailsequipe?idequipe=' + ${equipe.getPk()}" type="button">Voir details equipe</a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -96,22 +101,62 @@ background-attachment: fixed;">
                     </ul>
                   </nav> -->
                   <div class="row">
-                    <div class="col-2 text-end">
-                      <h5 class="font-weight-bolder">Export to :</h5>
-                    </div>
                     <div class="col-1 text-center">
-                      <a href="#"><button class="btn btn-outline-primary btn-sm mb-0">CSV</button></a>
+                      <h5 class="font-weight-bolder"></h5>
                     </div>
-                    <div class="col-1 text-center">
+                    <div class="col-3 text-start" th:if="${isAdmin == yesString}">
+                      <a th:if="${categorie != null}" th:href="'exportcertificatPDF?idcategorie=' + ${categorie.getPk()} + '&gagnant=' + ${gagnant}"><button class="btn btn-outline-primary btn-sm mb-0">Get certificat vainqueur</button></a>
+                      <a th:unless="${categorie != null}" th:href="'exportcertificatPDF?idcategorie=0&gagnant=' + ${gagnant}"><button class="btn btn-outline-primary btn-sm mb-0">Get certificat vainqueur</button></a>
+                    </div>
+                    <!-- <div class="col-1 text-center">
                       <a href="#"><button class="btn btn-outline-primary btn-sm mb-0">Excel</button></a>
                     </div>
                     <div class="col-1 text-center">
                       <a href="#"><button class="btn btn-outline-primary btn-sm mb-0">PDF</button></a>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
             </div>
+            <style type='text/css'>
+              .chart-pie{
+                display: block;
+                width: 400px; /* Customize the width */
+                height: 400px; /* Customize the height */
+              }
+            </style>
+            <div class="bg-white shadow-primary border-radius-lg py-3 pe-1 chart-pie">
+              <canvas id="chart-pie"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script th:inline="javascript">
+              var ctx = document.getElementById("chart-pie").getContext("2d");
+              // Chart.defaults.global.defaultFontColor = 'black';
+              // Chart.defaults.global.defaultFontSize = 16;
+              var hashmapstat = /*[[${equipepointsMap}]]*/ {};
+              // Chart.defaults.global.defaultFontColor = 'black';
+              // Chart.defaults.global.defaultFontSize = 16;
+              // console.log(hashmapstat);
+              new Chart(ctx, {
+                type: "pie",
+                data: {
+                labels: Object.keys(hashmapstat),
+                datasets: [{
+                  label: "Points",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: Object.values(hashmapstat)
+                }]
+              },
+                options: {
+                  title: {
+                    display: true,
+                    text: 'Repartition des points de chaque equipe dans le classement'
+                  }
+                }
+              }
+            );
+            </script>
+            
         </div>
         <div class="page-header align-items-start min-vh-100">
 

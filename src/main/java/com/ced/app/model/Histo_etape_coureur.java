@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Histo_etape_coureur {
@@ -22,6 +23,9 @@ public class Histo_etape_coureur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pk;
+    @Transient
+    private long chronomisypenalite;
+
     public Histo_etape_coureur(String id, Affectation_coureur affectation, LocalDateTime heuredepart,
             LocalDateTime heurearrivee, double points, int rang) {
         this.id = id;
@@ -84,5 +88,11 @@ public class Histo_etape_coureur {
     }
     public void setPk(int pk) {
         this.pk = pk;
+    }
+    public long getChronomisypenalite() {
+        return chronomisypenalite;
+    }
+    public void setChronomisypenalite(long chronomisypenalite) {
+        this.chronomisypenalite = chronomisypenalite;
     }
 }

@@ -14,17 +14,16 @@ import org.springframework.stereotype.Service;
 
 import com.ced.app.model.Affectation_coureur;
 import com.ced.app.model.Coureur;
-import com.ced.app.model.Etape;
-import com.ced.app.repository.Affectation_coureurRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class Affectation_coureurService {
     @Autowired
-    private Affectation_coureurRepository affectation_coureurRepository;
+    private Histo_etape_coureurService histo_etape_coureurService;
 
     @Autowired
     private CoureurService coureurService;
@@ -53,9 +52,14 @@ public class Affectation_coureurService {
         jakarta.persistence.Query query = entityManager.createNativeQuery(nativeQuery);
         query.setParameter("idcoureur", idcoureur);
         query.setParameter("idetape", idetape);
-        int rowInserted = query.executeUpdate();
-        System.out.println("Affectation coureur inserted : " + rowInserted);
-        return rowInserted;
+        int rowAffectation_Inserted = query.executeUpdate();
+        System.out.println("Affectation coureur inserted : " + rowAffectation_Inserted);
+
+        if (rowAffectation_Inserted != 0) {
+            Affectation_coureur affectation_matched = getAffectationOf(idcoureur, idetape);
+            histo_etape_coureurService.save(affectation_matched.getPk(), affectation_matched.getEtape().getDate_depart(), null);
+        }
+        return rowAffectation_Inserted;
     }
 
     @SuppressWarnings("unchecked")
@@ -106,6 +110,32 @@ public class Affectation_coureurService {
             stmt = connect.createStatement();
             rst = stmt.executeQuery("select * from affectation_coureur");
             if(!rst.isBeforeFirst()){
+                throw new Exception("affectation_coureur(connection) get all vide");
+            }
+            while (rst.next()) {
+                tabAffectation_coureurs.add(new Affectation_coureur(rst.getString("id"), coureurService.findByPk(connect, rst.getInt("idcoureur")), etapeService.findByPk(connect, rst.getInt("idetape")), rst.getInt("pk")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        finally{
+            rst.close();
+            stmt.close();
+        }
+        return tabAffectation_coureurs;
+    }
+
+    public List<Affectation_coureur> getAllOrderByPk(Connection connect) throws Exception
+    {
+        List<Affectation_coureur> tabAffectation_coureurs = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rst = null;
+        try {
+            stmt = connect.createStatement();
+            rst = stmt.executeQuery("select * from affectation_coureur order by pk asc");
+            if(!rst.isBeforeFirst()){
+                System.out.println("Vide ilay getAllOrderByPk");
                 throw new Exception("affectation_coureur(connection) get all vide");
             }
             while (rst.next()) {

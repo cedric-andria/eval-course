@@ -22,6 +22,8 @@ public class Equipe {
     private double points;
     @Transient
     private int rang;
+    @Transient 
+    private int has_exaequo;
     
     public Equipe(int pk) {
         this.pk = pk;
@@ -74,6 +76,12 @@ public class Equipe {
     }
     public void setRang(int rang) {
         this.rang = rang;
+    }
+    public int getHas_exaequo() {
+        return has_exaequo;
+    }
+    public void setHas_exaequo(int has_exaequo) {
+        this.has_exaequo = has_exaequo;
     }
 
 }

@@ -18,7 +18,7 @@
 <head th:utext="${imports}">
 </head>
 
-<body class="g-sidenav-show  bg-gray-200" style="background-image: url('img/bg-grey.jpg'); background-size: cover;
+<body class="g-sidenav-show  bg-gray-200" style="background-image: url('img/background/running-fitness.png'); background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;">
   <script th:inline="javascript">
@@ -54,7 +54,7 @@ background-attachment: fixed;">
                   </div>
                 </div>
               </div>
-              <form role="form" class="text-start" action="processimportpaiement" method="GET">
+              <form role="form" class="text-start" action="processimportpoints" method="GET">
                   <div class="text-center">
                       <!-- <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Soumettre</button> -->
                       <div th:if="${errors.size() == 0}">
@@ -63,7 +63,7 @@ background-attachment: fixed;">
                       <div th:unless="${errors.size() == 0}">
                         <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" disabled>Finish split CSV import</button>
                       </div>
-                      <a href="gotouploadpaiement"><button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Back to file upload</button></a>
+                      <a href="gotouploadpoints"><button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Back to file upload</button></a>
                   </div>
               </form>
             </div>

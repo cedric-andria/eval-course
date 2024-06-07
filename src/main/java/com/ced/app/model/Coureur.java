@@ -43,7 +43,22 @@ public class Coureur {
         name = "Categorie_coureur", joinColumns = @JoinColumn(name = "idcoureur"), inverseJoinColumns = @JoinColumn(name = "idcategorie")
     )
     private List<Categorie> categories;
-    
+    @Transient
+    private long chronomisypenalite;
+    @Transient
+    private long chronotsisypenalite;
+    @Transient
+    private long valeurPenalite;
+
+    public Coureur(int pk, String dossard, String nom) {
+        this.dossard = dossard;
+        this.nom = nom;
+        this.pk = pk;
+    }
+    public Coureur(int pk, String nom) {
+        this.nom = nom;
+        this.pk = pk;
+    }
     public Coureur(int pk) {
         this.pk = pk;
     }
@@ -135,6 +150,9 @@ public class Coureur {
     }
     public long getDuration()
     {
+        if (getHeurearrivee() == null) {
+            this.setHeurearrivee(this.heuredepart);
+        }
         return Duration.between(getHeuredepart(), getHeurearrivee()).toMillis();
     }
     public LocalDateTime getHeuredepart() {
@@ -154,5 +172,23 @@ public class Coureur {
     }
     public void setRang(int rang) {
         this.rang = rang;
+    }
+    public long getChronomisypenalite() {
+        return chronomisypenalite;
+    }
+    public void setChronomisypenalite(long chronomisypenalite) {
+        this.chronomisypenalite = chronomisypenalite;
+    }
+    public long getChronotsisypenalite() {
+        return chronotsisypenalite;
+    }
+    public void setChronotsisypenalite(long chronotsisypenalite) {
+        this.chronotsisypenalite = chronotsisypenalite;
+    }
+    public long getValeurPenalite() {
+        return valeurPenalite;
+    }
+    public void setValeurPenalite(long valeurPenalite) {
+        this.valeurPenalite = valeurPenalite;
     }
 }

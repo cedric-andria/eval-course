@@ -22,6 +22,11 @@ public class Etape {
     @Transient
     private Classement_etape classement_etape;
 
+    public Etape(int pk, LocalDateTime date_depart, int rang) {
+        this.rang = rang;
+        this.date_depart = date_depart;
+        this.pk = pk;
+    }
     public Etape(int pk, LocalDateTime date_depart) {
         this.pk = pk;
         this.date_depart = date_depart;

@@ -99,10 +99,10 @@ public class ImportEtapeService {
         // ResultSet rslt = null;
         try {
 
-            String queryToEtape = "insert into Etape (nom, longueur, nbcoureur_equipe, rang, date_depart) select DISTINCT etape, longueur, nb_coureur, rang, date_depart || ' ' || heure_depart from tempetape where etape NOT IN (select nom from etape)";
+            String queryToEtape = "insert into Etape (nom, longueur, nbcoureur_equipe, rang, date_depart) select DISTINCT etape, longueur, nb_coureur, rang, TO_TIMESTAMP(date_depart || ' ' || heure_depart, 'YYYY-MM-DD HH24:MI:SS') from tempetape where etape NOT IN (select nom from etape)";
 
             // connect = ConnectSQL.getConnection("postgres", "btp", "postgres", "root");
-            // connect.setAutoCommit(false);
+            connect.setAutoCommit(false);
 
             stmt = connect.createStatement();
             stmt.executeUpdate(queryToEtape);
@@ -172,6 +172,49 @@ public class ImportEtapeService {
                     // if (!connect.isClosed()) {
                     //     connect.close();
                     // }
+                    if (!stmt.isClosed()) {
+                        stmt.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void resettemptable() throws Exception
+    {
+        Connection connect = null;
+        Statement stmt = null;
+        // ResultSet rslt = null;
+        try {
+
+            String queryToTable = "truncate tempetape";
+            // String queryToLineNumber = "alter sequence tempdevis_linenumber_seq restart with 1";
+            String queryToLineNumber = "select setval('tempetape_linenumber_seq', 1, false)";
+
+            connect = ConnectSQL.getConnection("postgres", "course", "postgres", "root");
+
+            stmt = connect.createStatement();
+            stmt.executeUpdate(queryToTable);
+            // stmt.executeUpdate(queryToLineNumber);
+            stmt.execute(queryToLineNumber);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            try {
+                connect.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            throw e;
+        }
+        finally{
+            if (connect != null) {
+                try {
+                    if (!connect.isClosed()) {
+                        connect.close();
+                    }
                     if (!stmt.isClosed()) {
                         stmt.close();
                     }

@@ -53,7 +53,7 @@ public class CoureurService {
                 throw new Exception("Coureur findbyPk(connection) vide");
             }
             while (rst.next()) {
-                tabcoureur.add(new Coureur(rst.getInt("pk")));
+                tabcoureur.add(new Coureur(rst.getInt("pk"), rst.getString("dossard"), rst.getString("nom")));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,5 +68,16 @@ public class CoureurService {
         matchedCoureur = tabcoureur.get(0);
         return matchedCoureur;
 
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Coureur> getCoureursOf(int idequipe)
+    {
+        List<Coureur> tabCoureurs = new ArrayList<>();
+        String nativeQuery = "SELECT * FROM coureur where idequipe = :idequipe";
+        jakarta.persistence.Query query = entityManager.createNativeQuery(nativeQuery, Coureur.class);
+        query.setParameter("idequipe", idequipe);
+        tabCoureurs = query.getResultList();
+        return tabCoureurs;
     }
 }

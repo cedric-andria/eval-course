@@ -29,8 +29,8 @@ background-attachment: fixed;">
                             <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7">Nom</th>
                             <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-7 ps-2">Longueur</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nb coureurs/equipe</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Depart</th>
-                            <th class="text-center text-secondary opacity-7">Rang</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rang</th>
+                            <th class="text-center text-secondary opacity-7"></th>
                             <th class="text-center text-secondary opacity-7"></th>
                           </tr>
                         </thead>
@@ -51,15 +51,17 @@ background-attachment: fixed;">
                             <td class="align-middle text-center text-sm" th:text="${etape.getNbcoureur_equipe()}">
                               <!-- <span class="badge badge-sm bg-gradient-success">Online</span> -->
                             </td>
-                            <td class="align-middle text-center" th:text="${#temporals.format(etape.getDate_depart(), 'dd-MM-yyyy HH:mm')}">
+                            <td class="align-middle text-center" th:text="${etape.getRang()}">
                               <!-- <span class="text-secondary text-xs font-weight-bold">23/04/18</span> -->
                             </td>
-                            <td class="align-middle text-center" th:text="${etape.getRang()}">
+                            <td class="align-middle text-center">
                               <!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                 Edit
                               </a> -->
                             </td>
-                            <td><a class="btn bg-gradient-primary w-100" th:href="'gotoaffectertempscoureur?idetape=' + ${etape.getPk()}" type="button">Affecter temps coureur</a></td>
+                            <td>
+                                <a class="btn bg-gradient-primary w-100" th:href="'voir_resultat_alea_jour4?idetape=' + ${etape.getPk()}" type="button">Resultat</a>
+                            </td>
                           </tr>
                         </tbody>
                       </table>

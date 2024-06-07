@@ -79,6 +79,7 @@ public class ImportEtapeResultatController {
                 connect = ConnectSQL.getConnection("postgres", "course", "postgres", "root");
                 importEtapeService.processSplitInsertion(connect);
                 errorsresultats = importResultatService.importCSV(absPathresultat, connect);
+                System.out.println("Vita ny split import etape");
                 session.setAttribute("connect", connect);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -150,7 +151,7 @@ public class ImportEtapeResultatController {
             // connect = ConnectSQL.getConnection("postgres", "btp", "postgres", "root");
             connect = (Connection)session.getAttribute("connect");
             temptablesresultat = importResultatService.getTemptables(connect);
-
+            System.out.println("Miraikitra eto am getTemptables resultat");
             //verification des contraintes
             if(temptablesetape.size() == 0)
             {
@@ -225,6 +226,7 @@ public class ImportEtapeResultatController {
             } catch (Exception e) {
                 e.printStackTrace();
                 connect.rollback();
+                importEtapeService.resettemptable();
             }
             finally{
                 if (connect != null) {

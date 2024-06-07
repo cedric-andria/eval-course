@@ -72,7 +72,7 @@ public class ImportResultatService {
         try {
             String query = "select * from tempresultat";
             // System.out.println("0 probleme avant connexion");
-            connect = ConnectSQL.getConnection("postgres", "course", "postgres", "root");
+            // connect = ConnectSQL.getConnection("postgres", "course", "postgres", "root");
             stmt = connect.createStatement();
             // System.out.println("0 probleme apres createStatement");
             rslt = stmt.executeQuery(query);
@@ -113,10 +113,12 @@ public class ImportResultatService {
         // ResultSet rslt = null;
         try {
             String queryToGenre = "insert into Genre (nom) select distinct genre from tempresultat where genre NOT IN (select nom from genre)";
-            String queryToUtilisateur = "insert into Utilisateur (login, mdp, profil) select distinct t.equipe, t.equipe, 'equipe' as profil from tempresultat t where t.equipe, t.equipe, profil NOT IN (select login, mdp, profil from utilisateur)";
-            String queryToEquipe = "insert into Equipe (nom) select DISTINCT equipe from tempresultat where equipe NOT IN (select nom from equipe)";
-            String queryToCoureur = "insert into Coureur (dossard, nom, idgenre, datenaissance, idequipe) select DISTINCT t.numero_dossard, t.genre, g.pk, t.date_naissance, e.pk from tempresultat t JOIN genre g ON g.nom = t.genre JOIN equipe e ON e.nom = t.equipe where t.genre, g.pk, t.date_naissance, e.pk NOT IN (select dossard, nom, idgenre, datenaissance, idequipe from coureur)";
-            String queryToAffectation = "insert into Affectation_coureur (idcoureur, idcetape) select DISTINCT c.pk, e.pk from tempresultat t join coureur c on c.nom = t.nom join etape e on e.rang = t.etape_rang where c.pk, e.pk NOT IN (select idcoureur, idetape from Affectation_coureur)";
+            String queryToUtilisateur = "insert into Utilisateur (login, mdp, profil) select distinct t.equipe, t.equipe, 'equipe' as fakeprofil from tempresultat t where NOT EXISTS (SELECT 1 from utilisateur u where u.login = t.equipe AND u.mdp = t.equipe AND u.profil = 'equipe')";
+            String queryToEquipe = "insert into Equipe (nom, idutilisateur) select DISTINCT t.equipe, u.pk from tempresultat t join utilisateur u on u.login = t.equipe where (t.equipe, u.pk) NOT IN (select nom, idutilisateur from equipe)";
+            String queryToCoureur = "insert into Coureur (dossard, nom, idgenre, datenaissance, idequipe) select DISTINCT t.numero_dossard, t.nom, g.pk, t.date_naissance, e.pk from tempresultat t JOIN genre g ON g.nom = t.genre JOIN equipe e ON e.nom = t.equipe where NOT EXISTS (SELECT 1 from coureur c where c.dossard = t.numero_dossard AND c.nom = t.nom AND c.idgenre = g.pk AND c.datenaissance = t.date_naissance AND c.idequipe = e.pk)";
+            String queryToAffectation = "insert into Affectation_coureur (idcoureur, idetape) select DISTINCT c.pk, e.pk from tempresultat t join coureur c on c.nom = t.nom join etape e on e.rang = t.etape_rang where NOT EXISTS (select 1 from Affectation_coureur ac where ac.idcoureur = c.pk AND ac.idetape = e.pk)";
+
+            // connect.setAutoCommit(false);
 
             stmt = connect.createStatement();
             stmt.executeUpdate(queryToGenre);
@@ -125,10 +127,15 @@ public class ImportResultatService {
             stmt.executeUpdate(queryToCoureur);
             stmt.executeUpdate(queryToAffectation);
 
-            for (Affectation_coureur affectation : affectation_coureurService.getAll(connect)) {
-                String queryToHisto_etape_coureur = "insert into Histo_etape_coureur (idaffectation, heuredepart, heurearrivee) select DISTINCT " + affectation.getPk() + " as idaffectation, '" + affectation.getEtape().getDate_depart().format(formatter) + "' as heuredepart, t.arrivee from tempresultat t join affectation a on a.pk = idaffectation where idaffectation NOT IN (select idaffectation from Histo_etape_coureur)";
+            for (Affectation_coureur affectation : affectation_coureurService.getAllOrderByPk(connect)) {
+                String queryToHisto_etape_coureur = "insert into Histo_etape_coureur (idaffectation, heuredepart, heurearrivee) values (" + affectation.getPk() + " , TO_TIMESTAMP('" + affectation.getEtape().getDate_depart().format(formatter) + "', 'YYYY-MM-DD HH24:MI:SS'), (select t.arrivee from tempresultat t where t.numero_dossard = '" + affectation.getCoureur().getDossard() + "' AND t.etape_rang = " + affectation.getEtape().getRang() + "))";
+                System.out.println("query to histo etape coureur : " + queryToHisto_etape_coureur);
                 stmt.executeUpdate(queryToHisto_etape_coureur);
             }
+            // for (Affectation_coureur affectation : affectation_coureurService.getAll(connect)) {
+            //     String queryToHisto_etape_coureur = "insert into Histo_etape_coureur (idaffectation, heuredepart, heurearrivee) select DISTINCT " + affectation.getPk() + " , TO_TIMESTAMP('" + affectation.getEtape().getDate_depart().format(formatter) + "', 'YYYY-MM-DD HH24:MI:SS'), t.arrivee from tempresultat t join affectation_coureur a on a.pk = " + affectation.getPk() + " where " + affectation.getPk() + " NOT IN (select idaffectation from Histo_etape_coureur)";
+            //     stmt.executeUpdate(queryToHisto_etape_coureur);
+            // }
 
             // connect = ConnectSQL.getConnection("postgres", "btp", "postgres", "root");
             // connect.setAutoCommit(false);

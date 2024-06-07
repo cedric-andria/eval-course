@@ -15,7 +15,8 @@ import com.ced.app.repository.CoureurRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class CategorieService {
@@ -74,20 +75,22 @@ public class CategorieService {
         int categorie_coureurInserted = 0;
 
         for (String categorie : categories) {
-            //raha efa mis yilay categorie dia tsy averina
-            Categorie duplicatecategorie = null;
-            try {
-                duplicatecategorie = getByNom(categorie);
-                if (duplicatecategorie != null) {
-                    throw new Exception("Trying to insert duplicate value on Categorie");
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-                //tsy misy duplique satria get(0) null
-            }
+            //raha efa misy ilay categorie dia tsy averina
+            // Categorie duplicatecategorie = null;
+            // try {
+            //     duplicatecategorie = getByNom(categorie);
+            //     if (duplicatecategorie != null) {
+            //         throw new Exception("Trying to insert duplicate value on Categorie");
+            //     }
+            // } catch (Exception e) {
+            //     // TODO: handle exception
+            //     e.printStackTrace();
+                
+            //     //tsy misy duplique satria get(0) null
+            // }
             //raha efa mis ilay categorie dia tsy averina
 
-            nativeQuery = "Insert into categorie (nom) values (:nom)";
+            nativeQuery = "Insert into categorie (nom) values (:nom) ON CONFLICT (nom) DO NOTHING";
             jakarta.persistence.Query query = entityManager.createNativeQuery(nativeQuery, Categorie.class);
             query.setParameter("nom", categorie);
             categorierowsInserted += query.executeUpdate();
@@ -97,7 +100,7 @@ public class CategorieService {
         List<Coureur> tabCoureurs = coureurRepository.findAll();
         for (Coureur coureur : tabCoureurs) {
             //test genre
-            if (coureur.getGenre().getNom().equalsIgnoreCase("H")) {
+            if (coureur.getGenre().getNom().equalsIgnoreCase("M")) {
                 Categorie matchedCategorie = getByNom("Homme");
                 nativeQuery = "Insert into Categorie_coureur (idcoureur, idcategorie) values (:idcoureur , :idcategorie)";
                 jakarta.persistence.Query query = entityManager.createNativeQuery(nativeQuery, Categorie_coureur.class);

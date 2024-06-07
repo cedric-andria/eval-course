@@ -43,6 +43,9 @@ public class AffectationController {
     @PostMapping("/affectercoureur")
     public String affectercoureur(@RequestParam(name = "idcoureur", required = true) String idcoureur, @RequestParam(name = "idetape", required = true) String idetape, HttpSession session, Model model)
     {
+        if (session.getAttribute("equipe_session") == null) {
+            return "redirect:/";
+        }
         model.addAttribute("imports", StaticImportController.head_imports);
         model.addAttribute("sidebar", StaticImportController.sidebar);
         model.addAttribute("settings", StaticImportController.settings);
@@ -188,8 +191,11 @@ public class AffectationController {
             affectation_coureur_matched = affectation_coureurService.getAffectationOf(Integer.parseInt(idcoureur), Integer.parseInt(idetape));
             //contrainte raha efa nisy histo inseré mitovy sady any am calcul classement misy manao limit 1
             if (histo_etape_coureurService.getByAffectation(affectation_coureur_matched.getPk()).size() != 0) {
-                model.addAttribute("warning_affectation_temps", "Les performances de ce coureur pour cette etape ont deja ete enregistres");
-                return "affectation-temps-coureur-admin";
+                //raha efa ao sady efa misy temps
+                if (histo_etape_coureurService.getByAffectation(affectation_coureur_matched.getPk()).get(0).getHeurearrivee() != null){
+                    model.addAttribute("warning_affectation_temps", "Les performances de ce coureur pour cette etape ont deja ete enregistres");
+                    return "affectation-temps-coureur-admin";
+                }
             }
             //contrainte raha efa nisy histo inseré mitovy sady any am calcul classement misy manao limit 1
             //rehefa ok daholo dia afaka manao insertion

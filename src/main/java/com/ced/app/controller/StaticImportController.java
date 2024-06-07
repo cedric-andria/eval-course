@@ -165,17 +165,41 @@ public interface StaticImportController {
             "        <li class=\"nav-item\">\r\n" + //
             "          <a class=\"nav-link text-white \" href=\"/gotogeneratecategorie\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons-outlined opacity-10\">mediation</i>\r\n" + //
+            "              <i class=\"material-icons opacity-10\">mediation</i>\r\n" + //
             "            </div>\r\n" + //
             "            <span class=\"nav-link-text ms-1\">Generation categorie</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "        <li class=\"nav-item\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"/gotolistepenalites\">\r\n" + //
+            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
+            "              <i class=\"material-icons opacity-10\">more_time</i>\r\n" + //
+            "            </div>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Interface penalite admin</span>\r\n" + //
+            "          </a>\r\n" + //
+            "        </li>\r\n" + //
+            "        <li class=\"nav-item\">\r\n" + //
             "          <a class=\"nav-link text-white \" href=\"gotoresetbase\">\r\n" + //
             "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
-            "              <i class=\"material-icons opacity-10\">info</i>\r\n" + //
+            "              <i class=\"material-icons opacity-10\">restart_alt</i>\r\n" + //
             "            </div>\r\n" + //
             "            <span class=\"nav-link-text ms-1\">Reinitilisation base</span>\r\n" + //
+            "          </a>\r\n" + //
+            "        </li>\r\n" + //
+            "        <li class=\"nav-item\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"gotolisteetape_resultatadmin\">\r\n" + //
+            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
+            "              <i class=\"material-icons opacity-10\">format_list_numbered</i>\r\n" + //
+            "            </div>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Liste etape admin Jour 4</span>\r\n" + //
+            "          </a>\r\n" + //
+            "        </li>\r\n" + //
+            "        <li class=\"nav-item\">\r\n" + //
+            "          <a class=\"nav-link text-white \" href=\"deconnexion\">\r\n" + //
+            "            <div class=\"text-white text-center me-2 d-flex align-items-center justify-content-center\">\r\n" + //
+            "              <i class=\"material-icons opacity-10\">logout</i>\r\n" + //
+            "            </div>\r\n" + //
+            "            <span class=\"nav-link-text ms-1\">Se deconnecter</span>\r\n" + //
             "          </a>\r\n" + //
             "        </li>\r\n" + //
             "      </ul>\r\n" + //

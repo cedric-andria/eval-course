@@ -103,7 +103,7 @@ public class ImportPointsService {
             String queryToParampoints = "insert into Param_points_rang (rang, points) select DISTINCT t.classement, t.points from temppoints t where (t.classement, t.points) NOT IN (select rang, points from Param_points_rang)";
 
             // connect = ConnectSQL.getConnection("postgres", "btp", "postgres", "root");
-            // connect.setAutoCommit(false);
+            connect.setAutoCommit(false);
 
             stmt = connect.createStatement();
             stmt.executeUpdate(queryToParampoints);
